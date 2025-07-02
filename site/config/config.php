@@ -20,9 +20,12 @@ return [
       }
     ]
   ],
+  /* For security, turn to FALSE when going live */
   'debug' => false,
-  /* turn to FALSE when going live to hide debugging errors */
   'panel' =>[
-    'install' => true
+    'install' => false,
+    'vue' => [
+            'compiler' => false
+        ]
   ]
 ];
