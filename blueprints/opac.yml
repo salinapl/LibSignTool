@@ -11,8 +11,18 @@ columns:
         label: Headline
         type: text
       links:
-        extends: fields/opaclinks
         label: OPAC Links
+        type: structure
+        fields:
+          icon:
+            label: icon
+            type: text
+          link:
+            label: URL
+            type: url
+          description:
+            label: Description
+            type: text
   right:
     width: 1/3
     fields:
