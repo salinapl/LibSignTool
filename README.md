@@ -2,6 +2,8 @@
 # LibSignTool - Library Digital Signage System using Kirby
 A Simple and flexible digital signage and OPAC greeter built for public terminals using [Kirby](https://getkirby.com)
 
+Originally forked from [catsoup11789/LibraryDigitalSignage](https://github.com/catsoup11789/LibraryDigitalSignage)
+
 <img src="https://user-images.githubusercontent.com/36831696/188289361-3358749c-edcd-40d5-abde-3f65833bad03.jpg" width="23%"></img> <img src="https://user-images.githubusercontent.com/36831696/188716082-0ef6582c-978d-4518-8e0d-c13a4c28e921.jpg" width="23%"></img> <img src="https://user-images.githubusercontent.com/36831696/188716097-aa42512f-20fc-4237-8088-f772b7bd78dd.jpg" width="23%"></img> <img src="https://user-images.githubusercontent.com/36831696/188289371-733f02eb-c18a-4445-8a51-b6b436f33345.png" width="23%"></img> <img src="https://user-images.githubusercontent.com/36831696/188289377-1bfe6173-a6ec-4a04-b4ae-42a85867a2e3.png" width="23%"></img> <img src="https://user-images.githubusercontent.com/36831696/188289378-b31aeaad-3f0b-4f88-843b-7f9efdd477a6.png" width="23%"></img> <img src="https://user-images.githubusercontent.com/36831696/188289379-821063ab-6074-44e4-8ee5-8491d405f526.png" width="23%"></img> <img src="https://user-images.githubusercontent.com/36831696/188289381-c6043f8e-874e-4639-bb4b-9154b8b0e16f.png" width="23%"></img> 
 
 
