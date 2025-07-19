@@ -1,12 +1,34 @@
-title: slideshows
+title: Campaign Slideshows
 icon: 📺
-
-fields:
-  defaults:
-    label: Default Autodetect Slideshow
-    type: select
-    options: query
-    query: site.find('slideshows').children
-    # options: query
-    # query: page.parent.pluck('tags', ';', true)
-    # query: page.links.toStructure
+columns:
+  - width: 1/1
+    fields:
+      defaults:
+        label: Default Autodetect Slideshow
+        type: select
+        options: query
+        query: page.children
+        empty: No Slideshows created
+      tags:
+        label: Set Valid Campaign Categories
+        type: tags
+  - width: 1/2
+    sections:
+      slideshows:
+        label: Slideshows
+        type: pages
+        template:
+          - lst-slideshow
+  - width: 1/2
+    sections:
+      slidegalleries:
+        label: Shared Slide Images
+        type: pages
+        layout: cardlets
+        template:
+          - lst-gallery
+        info: "{{ page.images.count }} image(s)"
+        empty: No galleries created
+        image:
+          cover: true
+          query: page.previewImage
