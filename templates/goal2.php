@@ -1,5 +1,5 @@
-<?php snippet('header') ?>
-        <?= css('assets/css/templates/goal2.css') ?>
+<?php snippet('lst-header') ?>
+        <?= css('/media/plugins/salinapl/libsigntool/css/templates/goal2.css') ?>
     <?php
         $goal = $page->goal()->toInt();
         $numb = $page->current()->toInt();

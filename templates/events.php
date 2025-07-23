@@ -1,7 +1,7 @@
-<?php snippet('header') ?>
-        <?= css('assets/css/templates/event.css') ?>
+<?php snippet('lst-header') ?>
+        <?= css('/media/plugins/salinapl/libsigntool/css/templates/event.css') ?>
     </head>
     <body>
-        <?php snippet('event') ?>
+        <?php snippet('lst-event') ?>
     </body>
 </html>

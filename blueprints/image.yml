@@ -30,7 +30,7 @@ columns:
             width: 1
             type: multiselect
             options: query
-            query: site.tags.split(',')
+            query: site.find('slideshows').tags.split(',')
           opac:
             label: OPAC Link
             type: headline

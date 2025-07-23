@@ -1,7 +1,7 @@
-<?php snippet('header') ?>
-        <?= css('assets/fonts/remixicon.css') ?>
-        <?= css('assets/css/flickity.min.css') ?>
-        <?= css('assets/css/templates/opac.css') ?>
+<?php snippet('lst-header') ?>
+        <?= css('/media/plugins/salinapl/libsigntool/fonts/remixicon.css') ?>
+        <?= css('/media/plugins/salinapl/libsigntool/css/flickity.min.css') ?>
+        <?= css('/media/plugins/salinapl/libsigntool/css/templates/opac.css') ?>
         <?php //snippet('analytics') ?>
     </head>
     <body>
@@ -24,8 +24,8 @@
             </div>
             <?php if($page->sidebar()->bool()): ?>
                 <div class="main-carousel" data-flickity='{ "cellAlign": "left", "contain": true, "autoPlay": <?= $page->delay() ?>, "pauseAutoPlayOnHover": false, "wrapAround": true, "imagesLoaded": true, "pageDots": false, "prevNextButtons": false}'>
-                    <?php snippet('builder', ['orientation' => 'portrait']) ?>
+                    <?php snippet('lst-builder', ['orientation' => 'portrait']) ?>
                 </div>
             <?php endif ?>
         </div>
-        <?php snippet('footer') ?>
+        <?php snippet('lst-footer') ?>

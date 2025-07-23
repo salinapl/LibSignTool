@@ -1,4 +1,4 @@
-<?php snippet('header') ?>
+<?php snippet('lst-header') ?>
 <script>
     if (window.matchMedia("(orientation: portrait)").matches) {
         // you're in PORTRAIT mode
@@ -10,4 +10,4 @@
         window.location.replace("<?= page($page->defaults())->url() ?>/landscape");
     }
 </script>
-<?php snippet('footer') ?>
+<?php snippet('lst-footer') ?>

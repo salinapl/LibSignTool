@@ -1,13 +1,13 @@
 <?php $url = $_SERVER['REQUEST_URI']; ?>
-<?php snippet('header') ?>
-        <?= css('assets/css/flickity.min.css') ?>
-        <?= css('assets/css/templates/slideshow.css') ?>
+<?php snippet('lst-header') ?>
+        <?= css('/media/plugins/salinapl/libsigntool/css/flickity.min.css') ?>
+        <?= css('/media/plugins/salinapl/libsigntool/css/templates/slideshow.css') ?>
     </head>
     <body>
         <?php if(preg_match('/portrait|landscape/i', $url)):  ?>
             <div class="main-carousel" data-flickity='{ "cellAlign": "left", "contain": true, "autoPlay": <?= $page->delay() ?>, "pauseAutoPlayOnHover": false, "wrapAround": true, "imagesLoaded": true, "pageDots": false, "prevNextButtons": false}'>
             
-            <?php snippet('builder') ?>
+            <?php snippet('lst-builder') ?>
             </div>
         <?php else: ?>
             <script>
@@ -22,4 +22,4 @@
                 }
             </script>
         <?php endif ?>
-        <?php snippet('footer') ?>
+        <?php snippet('lst-footer') ?>

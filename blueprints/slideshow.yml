@@ -8,10 +8,10 @@ fields:
   gallery:
     label: Image Gallery
     type: pages
-    query: site.find('galleries').children
+    query: page.parent.children.filterBy('intendedTemplate', 'lst-gallery')
   tags:
     label: Campaign Categories
     type: multiselect
     accept: options
     options: query
-    query: site.tags.split(',')
+    query: page.parent.tags.split(',')

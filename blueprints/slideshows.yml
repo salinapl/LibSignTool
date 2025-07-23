@@ -7,7 +7,7 @@ columns:
         label: Default Autodetect Slideshow
         type: select
         options: query
-        query: page.children
+        query: page.children.filterBy('intendedTemplate', 'lst-slideshow')
         empty: No Slideshows created
       tags:
         label: Set Valid Campaign Categories

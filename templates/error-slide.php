@@ -1,6 +1,6 @@
-<?php snippet('header') ?>
-        <?= css('assets/fonts/remixicon.css') ?>
-        <?= css('assets/css/templates/error-slide.css') ?>
+<?php snippet('lst-header') ?>
+        <?= css('/media/plugins/salinapl/libsigntool/fonts/remixicon.css') ?>
+        <?= css('/media/plugins/salinapl/libsigntool/css/templates/error-slide.css') ?>
     </head>
     <body>
         <div class="flex-box">
@@ -9,4 +9,4 @@
                 <?= $page->body()->kirbytext() ?>
             </div>
         </div>
-        <?php snippet('footer') ?>
+        <?php snippet('lst-footer') ?>
