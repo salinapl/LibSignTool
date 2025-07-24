@@ -63,21 +63,21 @@
     // Queries the web-slides page and gets an array of it's child pages,
     // it then filters the pages based on the selected tags. The error page
     // will never be selected as it does not have any set tags.
-    // $webslides = page('web-slides')
-    //                 ->children()
-    //                 ->listed()
-    //                 ->filterBy('tags', 'in', $page->tags()->split(','), ',');
+    $webslides = page('slideshows/web-slide')
+                    ->children()
+                    ->listed()
+                    ->filterBy('tags', 'in', $page->tags()->split(','), ',');
 
-    // $webslides = $webslides->filter(function ($webslide) {
-    //     return
-    //         $webslide
-    //             ->expire()
-    //             ->toDate('Y-m-d') > date('Y-m-d')
-    //         &&
-    //         $webslide
-    //             ->start()
-    //             ->toDate('Y-m-d') <= date('Y-m-d');
-    // });
+    $webslides = $webslides->filter(function ($webslide) {
+        return
+            $webslide
+                ->expire()
+                ->toDate('Y-m-d') > date('Y-m-d')
+            &&
+            $webslide
+                ->start()
+                ->toDate('Y-m-d') <= date('Y-m-d');
+    });
 
     // Creates an empty array then assembles the slides into strings
     // then assembles the html and outputs the result into the array.
@@ -106,17 +106,17 @@
     //     array_push($slides, $string);
     // }
 
-    // foreach ($webslides as $webslide){
-    //     $string = '<iframe class="carousel-cell" src="';
-    //     $string .= $webslide->url();
-    //     $string .= '" scrolling="no"></iframe>';
-    //     array_push($slides, $string);
-    // }    
+    foreach ($webslides as $webslide){
+        $string = '<iframe class="carousel-cell" src="';
+        $string .= $webslide->url();
+        $string .= '" scrolling="no"></iframe>';
+        array_push($slides, $string);
+    }    
 
     // Counts the number of slides in the array, if it's zero, throws error slide 
     if (count($slides) <= 0){
         $string = '<iframe class="carousel-cell" src="';
-        $string .= $site->page('web-slides/error-slide')->url();
+        $string .= $site->page('slideshows/web-slide/error-slide')->url();
         $string .= '" scrolling="no"></iframe>';
         array_push($slides, $string);
     }
