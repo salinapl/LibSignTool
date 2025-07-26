@@ -14,109 +14,77 @@
     // then filters the gallery based on the selected tags.
     $gallery = $page->gallery()
 					->toPages()
-                    ->images()
-                    ->filterBy('tags', 'in', $page->tags()->split(','), ',');
-    
-    // Filters images further by orientation
-    $gallery = $gallery->filter(function ($image) use ($orientation) {
-        return $image->orientation() == $orientation;
-    });
+                    ->files()
+                    ->filterBy('tags', 'in', $page->tags()->split(','), ',')
+                    ->filter(function($file) use($orientation) {
+                        // orientation match
+                        if($orientation && $file->orientation() != $orientation) {
+                            return false;
+                        }
+                    // Filters the images to only show ones that appear between
+                    // the campaigns start and end date
+                    $today = date('Y-m-d');
+                    return $file->expire()->toDate('Y-m-d') > $today
+                        && $file->start()->toDate('Y-m-d') <= $today;
+        });
 
-    // Filters the images to only show ones that appear between
-    // the campaigns start and end date
-    $gallery = $gallery->filter(function ($image) {
-        return 
-            $image
-                ->expire()
-                ->toDate('Y-m-d') > date('Y-m-d')
-            &&
-            $image
-                ->start()
-                ->toDate('Y-m-d') <= date('Y-m-d');
-    });
-
-    // Fetches the selected video gallery based on the campaign page
-    // then filters the gallery based on the selected tags.
-    // $videos = page('videogalleries')
-    //                ->children()
-    //                ->videos()
-    //                ->filterBy('tags', 'in', $page->tags()->split(','), ',');
-
-    // Filters videos further by orientation
-    // $videos = $videos->filter(function ($video) use ($orientation) {
-    //     return $video->orientation() == $orientation;
-    // });
-
-    // Filters the videos to only show ones that appear between
-    // the campaigns start and end date
-    // $videos = $videos->filter(function ($video) {
-    //     return 
-    //         $video
-    //             ->expire()
-    //             ->toDate('Y-m-d') > date('Y-m-d')
-    //         &&
-    //         $video
-    //             ->start()
-    //             ->toDate('Y-m-d') <= date('Y-m-d');
-    // });
 
     // Queries the web-slides page and gets an array of it's child pages,
     // it then filters the pages based on the selected tags. The error page
     // will never be selected as it does not have any set tags.
-    $webslides = page('slideshows/web-slide')
-                    ->children()
-                    ->listed()
-                    ->filterBy('tags', 'in', $page->tags()->split(','), ',');
+    // $webslides = page('web-slides')
+    //                 ->children()
+    //                 ->listed()
+    //                 ->filterBy('tags', 'in', $page->tags()->split(','), ',');
 
-    $webslides = $webslides->filter(function ($webslide) {
-        return
-            $webslide
-                ->expire()
-                ->toDate('Y-m-d') > date('Y-m-d')
-            &&
-            $webslide
-                ->start()
-                ->toDate('Y-m-d') <= date('Y-m-d');
-    });
+    // $webslides = $webslides->filter(function ($webslide) {
+    //     return
+    //         $webslide
+    //             ->expire()
+    //             ->toDate('Y-m-d') > date('Y-m-d')
+    //         &&
+    //         $webslide
+    //             ->start()
+    //             ->toDate('Y-m-d') <= date('Y-m-d');
+    // });
 
     // Creates an empty array then assembles the slides into strings
     // then assembles the html and outputs the result into the array.
     $slides = array();
     $class = 'class="carousel-cell ad" style="background-image:url(';
-    foreach ($gallery as $image){
-        $string = "<a ";
-        if ($image->link()->isNotEmpty()){
-            $string .= "href={$image->link()->url()} ";
+    foreach($gallery as $file) {
+        // Images
+        if($file->type() === 'image') {
+            $url = $file->orientation() === 'portrait'
+                ? $file->resize(null, 1080)->url()
+                : $file->resize(1080, null)->url();
+
+            $link = $file->link()->isNotEmpty()
+                ? ' href="' . $file->link()->url() . '"'
+                : '';
+
+            $slides[] = "<a{$link} {$class}{$url})\"></a>";
         }
-        $string .= $class;
-        if($image->orientation() == 'portrait'){
-            $string .= $image->resize(null, 1080)->url();
+        // Videos
+        elseif($file->type() === 'video') {
+            $slides[] = sprintf(
+                '<video autoplay muted loop class="carousel-cell"><source src="%s"></video>',
+                $file->url()
+            );
         }
-        else { 
-            $string .= $image->resize(1080, null)->url();
-        }
-        $string .= ')"></a>';
-        array_push($slides, $string);
     }
 
-    // foreach ($videos as $file){
-    //     $string = '<video autoplay muted loop> <source src="';
-    //     $string .= $file->url();
-    //     $string .= '"></video>';
+    // foreach ($webslides as $webslide){
+    //     $string = '<iframe class="carousel-cell" src="';
+    //     $string .= $webslide->url();
+    //     $string .= '" scrolling="no"></iframe>';
     //     array_push($slides, $string);
-    // }
-
-    foreach ($webslides as $webslide){
-        $string = '<iframe class="carousel-cell" src="';
-        $string .= $webslide->url();
-        $string .= '" scrolling="no"></iframe>';
-        array_push($slides, $string);
-    }    
+    // }    
 
     // Counts the number of slides in the array, if it's zero, throws error slide 
     if (count($slides) <= 0){
         $string = '<iframe class="carousel-cell" src="';
-        $string .= $site->page('slideshows/web-slide/error-slide')->url();
+        $string .= $site->page('web-slide/error-slide')->url();
         $string .= '" scrolling="no"></iframe>';
         array_push($slides, $string);
     }

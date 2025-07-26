@@ -7,7 +7,7 @@ use Kirby\Data\Yaml;
 Kirby::plugin('salinapl/libsigntool', [
     'blueprints' => [
         'fields/lst-links' => __DIR__ . '/blueprints/links.yml',
-        'files/image' => __DIR__ . '/blueprints/image.yml',
+        'files/lst-slide' => __DIR__ . '/blueprints/lst-slide.yml',
         'files/video' => __DIR__ . '/blueprints/video.yml',
         'pages/lst-slideshows' => __DIR__ . '/blueprints/slideshows.yml',
         'pages/lst-slideshow' => __DIR__ . '/blueprints/slideshow.yml',
@@ -15,7 +15,7 @@ Kirby::plugin('salinapl/libsigntool', [
         'pages/lst-web-goal' => __DIR__ . '/blueprints/goal.yml',
         'pages/lst-web-goal2' => __DIR__ . '/blueprints/goal2.yml',
         'pages/lst-web-events' => __DIR__ . '/blueprints/events.yml',
-        'pages/lst-web-error' => __DIR__ . '/blueprints/error-slide.yml',
+        'pages/lst-web-error' => __DIR__ . '/blueprints/lst-web-error.yml',
         'pages/lst-opac' => __DIR__ . '/blueprints/opac.yml',
         'pages/lst-gallery' => __DIR__ . '/blueprints/gallery.yml',
         'pages/videogalleries' => __DIR__ . '/blueprints/videogallery.yml'
@@ -25,7 +25,7 @@ Kirby::plugin('salinapl/libsigntool', [
         'slideshow' => require __DIR__ . '/controllers/slideshow.php'
     ],
     'templates' => [
-        'lst-web-error' => __DIR__ . '/templates/error-slide.php',
+        'lst-web-error' => __DIR__ . '/templates/lst-web-error.php',
         'lst-web-events' => __DIR__ . '/templates/events.php',
         'lst-web-goal' => __DIR__ . '/templates/goal.php',
         'lst-web-goal2' => __DIR__ . '/templates/goal2.php',
@@ -43,13 +43,21 @@ Kirby::plugin('salinapl/libsigntool', [
         // checks for landscape or portrait tag in URL
         'routes' => [
             [
-            'pattern' => 'slideshows/(:any)/(:any)',
-            'action' => function ($subpage, $orientation) {
-                $data = [
-                    'orientation' => $orientation,
-                ];
-                return page('slideshows/' . $subpage)?->render($data);
-            }
+                'pattern' => 'slideshows/web-slide(:all)',
+                'action'  => fn() => null
+            ],
+            [
+                'pattern' => 'slideshows/(:any)/(:any)',
+                'where'   => [
+                    // If $subpage is exactly "web-slide", this route won’t match
+                    '1' => '(?!web-slide$).*'
+                ],
+                'action' => function ($subpage, $orientation) {
+                    $data = [
+                        'orientation' => $orientation,
+                    ];
+                    return page('slideshows/' . $subpage)?->render($data);
+                }
             ]
         ]
     ],

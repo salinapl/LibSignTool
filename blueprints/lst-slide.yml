@@ -1,6 +1,6 @@
 # Each file blueprint must have a title, the title may be different from the file name
-title: Video
-accept: video/mp4, video/webm, video/m4v
+title: Images & Video
+accept: image/jpeg, image/png, image/webp, video/mp4, video/webm, video/m4v
 # Like page blueprints, file blueprints can define a layout with tabs, columns, sections and fields
 # File blueprints define what sort of information should get stored in a file's meta data file
 # In addition to the fields defined in this example blueprint, you can also set what type of file is acceptable
@@ -25,20 +25,19 @@ columns:
             type: date
             required: true
             width: 1/4
-          orientation:
-            label: Orientation
-            type: select
-            required: true
-            default: land-ot
-            options:
-              portrait: Portrait
-              landscape: Landscape
           tags:
             label: Tags
             width: 1
             type: multiselect
             options: query
             query: site.find('slideshows').tags.split(',')
+          orientation:
+            label: Video Orientation
+            type: select
+            default: landscape
+            options:
+              portrait: Portrait
+              landscape: Landscape
           opac:
             label: OPAC Link
             type: headline

@@ -4,10 +4,11 @@ status:
   draft: true
   listed: true
 sections:
-  images:
+  slides:
     type: files
     layout: cards
-    template: image
+    batch: true
+    template: lst-slide
     info: "Active on: {{ file.start }}</br>Inactive on: {{ file.expire }}</br>Tags: {{ file.tags }}"
     sortBy: expire desc
     limit: 30
@@ -16,5 +17,4 @@ sections:
       ratio: 1/1
       cover: false
       back: pattern
-    min: 1
     size: small
