@@ -6,7 +6,7 @@ use Kirby\Data\Yaml;
 
 Kirby::plugin('salinapl/libsigntool', [
     'blueprints' => [
-        'fields/lst-links' => __DIR__ . '/blueprints/links.yml',
+        'fields/lst-links' => __DIR__ . '/blueprints/lst-links.yml',
         'files/lst-slide' => __DIR__ . '/blueprints/lst-slide.yml',
         'pages/lst-placeholder' => __DIR__ . '/blueprints/lst-placeholder.yml',
         'pages/lst-slideshows' => __DIR__ . '/blueprints/slideshows.yml',
@@ -16,8 +16,8 @@ Kirby::plugin('salinapl/libsigntool', [
         'pages/lst-web-goal2' => __DIR__ . '/blueprints/goal2.yml',
         'pages/lst-web-events' => __DIR__ . '/blueprints/events.yml',
         'pages/lst-web-error' => __DIR__ . '/blueprints/lst-web-error.yml',
-        'pages/lst-opac' => __DIR__ . '/blueprints/opac.yml',
-        'pages/lst-gallery' => __DIR__ . '/blueprints/gallery.yml',
+        'pages/lst-opac' => __DIR__ . '/blueprints/lst-opac.yml',
+        'pages/lst-gallery' => __DIR__ . '/blueprints/lst-gallery.yml',
 
     ],
     'controllers' => [
@@ -28,7 +28,7 @@ Kirby::plugin('salinapl/libsigntool', [
         'lst-web-events' => __DIR__ . '/templates/events.php',
         'lst-web-goal' => __DIR__ . '/templates/lst-web-goal.php',
         'lst-web-goal2' => __DIR__ . '/templates/goal2.php',
-        'lst-opac' => __DIR__ . '/templates/opac.php',
+        'lst-opac' => __DIR__ . '/templates/lst-opac.php',
         'lst-web' => __DIR__ . '/templates/lst-web.php',
         'lst-slideshow' => __DIR__ . '/templates/slideshow.php',
         'lst-slideshows' => __DIR__ . '/templates/slideshows.php'

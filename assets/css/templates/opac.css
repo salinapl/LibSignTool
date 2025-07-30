@@ -99,8 +99,8 @@ h1 {
     background: var(--color-02);
 }
 .main-carousel{
-   width: 425px;
-   height: 746px;
+   width: 413px;
+   height: 725px;
    z-index: 1000;
    overflow: hidden;
 }

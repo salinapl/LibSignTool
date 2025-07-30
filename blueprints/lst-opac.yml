@@ -27,7 +27,7 @@ columns:
     width: 1/3
     fields:
       ref:
-        extends: fields/links
+        extends: fields/lst-links
         label: Refrence Links
       header_image:
         type: files
@@ -39,19 +39,11 @@ columns:
         text:
           - "Disabled"
           - "Enabled"
-        label: Show Sidebar
-      delay:
-        label: Delay Between Slides (Milliseconds)
-        type: number
-        min: 1000
-      gallery:
-        label: Image Gallery
-        type: pages
+        label: Show Slideshow
+      slideshow:
+        label: Slideshow
+        type: select
         options: query
-        query: site.find('galleries').children
-      tags:
-        label: Campaign Categories
-        type: multiselect
-        accept: options
-        options: query
-        query: site.tags.split(',')
+        query: page('slideshows').children.filterBy('intendedTemplate', 'lst-slideshow')
+        when: 
+          sidebar: true

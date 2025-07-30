@@ -23,8 +23,8 @@
                 </nav>
             </div>
             <?php if($page->sidebar()->bool()): ?>
-                <div class="main-carousel" data-flickity='{ "cellAlign": "left", "contain": true, "autoPlay": <?= $page->delay() ?>, "pauseAutoPlayOnHover": false, "wrapAround": true, "imagesLoaded": true, "pageDots": false, "prevNextButtons": false}'>
-                    <?php snippet('lst-builder', ['orientation' => 'portrait']) ?>
+                <div class="main-carousel">
+                    <iframe class="carousel-cell" src="<?= $page->slideshow()->url() ?>" scrolling="no"></iframe>
                 </div>
             <?php endif ?>
         </div>

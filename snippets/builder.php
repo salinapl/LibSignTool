@@ -26,8 +26,7 @@
                     $today = date('Y-m-d');
                     return $file->expire()->toDate('Y-m-d') > $today
                         && $file->start()->toDate('Y-m-d') <= $today;
-        });
-
+    });
 
     // Queries the children of slideshows for templates matching lst-web,
     // it then filters the pages based on the selected tags. The error page
