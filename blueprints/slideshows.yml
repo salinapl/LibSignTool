@@ -35,8 +35,6 @@ columns:
       webslides:
         label: Web Slides
         type: pages
-        parent: site.find("slideshows/web-slide")
-        empty: No Web Slides
         template:
           - lst-web-goal
           - lst-web-goal2

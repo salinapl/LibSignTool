@@ -24,4 +24,5 @@ columns:
           - lst-web-goal2
           - lst-web-event
           - lst-web-error
+          - default
 

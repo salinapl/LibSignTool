@@ -29,24 +29,22 @@
         });
 
 
-    // Queries the web-slides page and gets an array of it's child pages,
+    // Queries the children of slideshows for templates matching lst-web,
     // it then filters the pages based on the selected tags. The error page
-    // will never be selected as it does not have any set tags.
-    // $webslides = page('web-slides')
-    //                 ->children()
-    //                 ->listed()
-    //                 ->filterBy('tags', 'in', $page->tags()->split(','), ',');
+    // will never be selected as it does not have any set tags and is unlisted.
+    $webslides = page('slideshows')
+                    ->children()
+                    ->listed()
+                    ->filterBy('template', '*', '/^lst-web/')
+                    ->filterBy('tags', 'in', $page->tags()->split(','), ',');
 
-    // $webslides = $webslides->filter(function ($webslide) {
-    //     return
-    //         $webslide
-    //             ->expire()
-    //             ->toDate('Y-m-d') > date('Y-m-d')
-    //         &&
-    //         $webslide
-    //             ->start()
-    //             ->toDate('Y-m-d') <= date('Y-m-d');
-    // });
+    $webslides = $webslides->filter(function ($webslide) {
+        // Filters the webslides to only show ones that appear between
+        // the campaigns start and end date
+        $today = date('Y-m-d');
+        return $webslide->expire()->toDate('Y-m-d') > $today
+            && $webslide->start()->toDate('Y-m-d') <= $today;
+    });
 
     // Creates an empty array then assembles the slides into strings
     // then assembles the html and outputs the result into the array.
@@ -74,24 +72,16 @@
         }
     }
 
-    // foreach ($webslides as $webslide){
-    //     $string = '<iframe class="carousel-cell" src="';
-    //     $string .= $webslide->url();
-    //     $string .= '" scrolling="no"></iframe>';
-    //     array_push($slides, $string);
-    // }    
-
-    //
-    // if (count($slides) <= 0){
-    //     $string = '<iframe class="carousel-cell" src="';
-    //     $string .= $site->page('web-slide/error-slide')->url();
-    //     $string .= '" scrolling="no"></iframe>';
-    //     array_push($slides, $string);
-    // }
+    foreach ($webslides as $webslide){
+        $string = '<iframe class="carousel-cell" src="';
+        $string .= $webslide->url();
+        $string .= '" scrolling="no"></iframe>';
+        array_push($slides, $string);
+    }    
 
     // if the slides array is empty, throws error slide
     if (empty($slides)) {
-        $errUrl   = $site->page('slideshows/web-slide')->url();
+        $errUrl   = $site->page('slideshows/web-slide-error')->url();
         $slides[] = "<iframe class=\"carousel-cell\" src=\"{$errUrl}\" scrolling=\"no\"></iframe>";
     }
     // Sorts the sides (random) and then prints each slide into html

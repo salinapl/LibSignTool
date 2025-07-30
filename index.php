@@ -12,13 +12,12 @@ Kirby::plugin('salinapl/libsigntool', [
         'pages/lst-slideshows' => __DIR__ . '/blueprints/slideshows.yml',
         'pages/lst-slideshow' => __DIR__ . '/blueprints/slideshow.yml',
         'pages/lst-web' => __DIR__ . '/blueprints/lst-web.yml',
-        'pages/lst-web-goal' => __DIR__ . '/blueprints/goal.yml',
+        'pages/lst-web-goal' => __DIR__ . '/blueprints/lst-web-goal.yml',
         'pages/lst-web-goal2' => __DIR__ . '/blueprints/goal2.yml',
         'pages/lst-web-events' => __DIR__ . '/blueprints/events.yml',
         'pages/lst-web-error' => __DIR__ . '/blueprints/lst-web-error.yml',
         'pages/lst-opac' => __DIR__ . '/blueprints/opac.yml',
         'pages/lst-gallery' => __DIR__ . '/blueprints/gallery.yml',
-        'pages/videogalleries' => __DIR__ . '/blueprints/videogallery.yml'
 
     ],
     'controllers' => [
@@ -27,7 +26,7 @@ Kirby::plugin('salinapl/libsigntool', [
     'templates' => [
         'lst-web-error' => __DIR__ . '/templates/lst-web-error.php',
         'lst-web-events' => __DIR__ . '/templates/events.php',
-        'lst-web-goal' => __DIR__ . '/templates/goal.php',
+        'lst-web-goal' => __DIR__ . '/templates/lst-web-goal.php',
         'lst-web-goal2' => __DIR__ . '/templates/goal2.php',
         'lst-opac' => __DIR__ . '/templates/opac.php',
         'lst-web' => __DIR__ . '/templates/lst-web.php',
@@ -44,20 +43,14 @@ Kirby::plugin('salinapl/libsigntool', [
         // checks for landscape or portrait tag in URL
         'routes' => [
             [
-                'pattern' => 'slideshows/web-slide(:all)',
-                'action'  => fn() => null
-            ],
-            [
-                'pattern' => 'slideshows/(:any)/(:any)',
-                'where'   => [
-                    // If $subpage is exactly "web-slide", this route won’t match
-                    '1' => '(?!web-slide$).*'
-                ],
-                'action' => function ($subpage, $orientation) {
+                'pattern' => 'slideshows/(:any)/(landscape|portrait)/(:all)?',
+                'action' => function ($slug, $orientation, $tail = null) {
+                    $path = 'slideshows/' . $slug . ($tail ? '/' . $tail : '');
                     $data = [
                         'orientation' => $orientation,
                     ];
-                    return page('slideshows/' . $subpage)?->render($data);
+                    
+                    return page($path)?->render($data);
                 }
             ]
         ]
@@ -81,8 +74,7 @@ Kirby::plugin('salinapl/libsigntool', [
         'system.loadPlugins:after' => function () {
             $kirby = kirby();
             $parentSlug = 'slideshows';
-            $webslideSlug = 'web-slide';
-            $errorSlug = 'error-slide';
+            $webslideSlug = 'web-slide-error';
 
             // Check if slideshows exists, create if not
             if (! $kirby->page($parentSlug)?->exists()) {
@@ -109,10 +101,10 @@ Kirby::plugin('salinapl/libsigntool', [
                 $kirby->impersonate('kirby', fn() =>
                 $kirby->page($parentSlug)->createChild([
                     'slug'     => $webslideSlug,
-                    'template' => 'lst-web',
+                    'template' => 'lst-web-error',
                     'content'  => [
                             'uuid'     => $webslideSlug,
-                            'title'    => 'Web Slides & Error Settings',
+                            'title'    => 'Error Slide',
                             'icon'     => 'ri-error-warning-fill',
                             'headline' => 'No Active Slides Set',
                             'body'     => $body,
