@@ -8,10 +8,10 @@ Kirby::plugin('salinapl/libsigntool', [
     'blueprints' => [
         'fields/lst-links' => __DIR__ . '/blueprints/links.yml',
         'files/lst-slide' => __DIR__ . '/blueprints/lst-slide.yml',
-        'files/video' => __DIR__ . '/blueprints/video.yml',
+        'pages/lst-placeholder' => __DIR__ . '/blueprints/lst-placeholder.yml',
         'pages/lst-slideshows' => __DIR__ . '/blueprints/slideshows.yml',
         'pages/lst-slideshow' => __DIR__ . '/blueprints/slideshow.yml',
-        'pages/lst-webslide' => __DIR__ . '/blueprints/lst-webslide.yml',
+        'pages/lst-web' => __DIR__ . '/blueprints/lst-web.yml',
         'pages/lst-web-goal' => __DIR__ . '/blueprints/goal.yml',
         'pages/lst-web-goal2' => __DIR__ . '/blueprints/goal2.yml',
         'pages/lst-web-events' => __DIR__ . '/blueprints/events.yml',
@@ -30,6 +30,7 @@ Kirby::plugin('salinapl/libsigntool', [
         'lst-web-goal' => __DIR__ . '/templates/goal.php',
         'lst-web-goal2' => __DIR__ . '/templates/goal2.php',
         'lst-opac' => __DIR__ . '/templates/opac.php',
+        'lst-web' => __DIR__ . '/templates/lst-web.php',
         'lst-slideshow' => __DIR__ . '/templates/slideshow.php',
         'lst-slideshows' => __DIR__ . '/templates/slideshows.php'
     ],
@@ -88,9 +89,9 @@ Kirby::plugin('salinapl/libsigntool', [
                 $kirby->impersonate('kirby', fn() =>
                     $kirby->site()->createChild([
                         'slug'     => $parentSlug,
-                        'template' => 'lst-slideshows',
+                        'template' => 'lst-placeholder',
                         'content'  => [
-                            'uuid' => $parentSlug
+                            'uuid' => $parentSlug,
                         ]
                     ])->changeStatus('unlisted')
                 );
@@ -100,38 +101,31 @@ Kirby::plugin('salinapl/libsigntool', [
 
             // Check if web-slides exists, create if not
             if (! $kirby->page($webslidePath)?->exists()) {
-                $kirby->impersonate('kirby', fn() =>
-                $kirby->page($parentSlug)->createChild([
-                    'slug'     => $webslideSlug,
-                    'content'  => [
-                        'uuid'     => $webslideSlug,
-                    ]
-                ])->changeStatus('unlisted')
-                );
-            }
-
-            $errorPath = "$parentSlug/$webslideSlug/$errorSlug";
-
-            // Check if error-slide exists, create if not
-            if (! $kirby->page($errorPath)?->exists()) {
                 $body = <<<'EOT'
         No active slides were found. Please contact staff in charge of digital signage to resolve the issue.
         - Check that all Campaigns are not expired.
         - Check Selected Campaign tags to make sure active Campaigns are not excluded.
         EOT;
-
                 $kirby->impersonate('kirby', fn() =>
-                $kirby->page($webslidePath)->createChild([
-                    'slug'     => $errorSlug,
-                    'template' => 'lst-web-error',
+                $kirby->page($parentSlug)->createChild([
+                    'slug'     => $webslideSlug,
+                    'template' => 'lst-web',
                     'content'  => [
-                        'uuid'     => $errorSlug,
-                        'icon'     => 'ri-error-warning-fill',
-                        'headline' => 'No Active Slides Set',
-                        'body'     => $body
+                            'uuid'     => $webslideSlug,
+                            'title'    => 'Web Slides & Error Settings',
+                            'icon'     => 'ri-error-warning-fill',
+                            'headline' => 'No Active Slides Set',
+                            'body'     => $body,
                     ]
                 ])->changeStatus('unlisted')
-                );
+            );
+            }
+            if ($kirby->page($webslidePath)?->exists()) {
+                    $result = $kirby->impersonate('kirby', function() {
+                        page('slideshows')->changeTemplate('lst-slideshows');
+
+                        return;
+                    });
             }
         }
     ]

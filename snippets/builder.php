@@ -81,17 +81,21 @@
     //     array_push($slides, $string);
     // }    
 
-    // Counts the number of slides in the array, if it's zero, throws error slide 
-    if (count($slides) <= 0){
-        $string = '<iframe class="carousel-cell" src="';
-        $string .= $site->page('web-slide/error-slide')->url();
-        $string .= '" scrolling="no"></iframe>';
-        array_push($slides, $string);
+    //
+    // if (count($slides) <= 0){
+    //     $string = '<iframe class="carousel-cell" src="';
+    //     $string .= $site->page('web-slide/error-slide')->url();
+    //     $string .= '" scrolling="no"></iframe>';
+    //     array_push($slides, $string);
+    // }
+
+    // if the slides array is empty, throws error slide
+    if (empty($slides)) {
+        $errUrl   = $site->page('slideshows/web-slide')->url();
+        $slides[] = "<iframe class=\"carousel-cell\" src=\"{$errUrl}\" scrolling=\"no\"></iframe>";
     }
     // Sorts the sides (random) and then prints each slide into html
     shuffle($slides);
-    foreach($slides as $slide){
-        echo $slide . "\n";
-    }
-    
+    echo implode("\n", $slides);
+
 ?>

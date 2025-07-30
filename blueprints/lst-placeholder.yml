@@ -1,0 +1,10 @@
+options:
+    changeTemplate:
+      - lst-placeholder
+      - lst-slideshows
+sections:
+  placeholder:
+    type: info
+    theme: negative
+    label: error
+    text: If you are seeing this the template didn't correctly apply, try refreshing the page, if the error persists, please contact the LibSignTool plugin maintainer for assistance.
