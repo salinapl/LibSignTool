@@ -24,11 +24,15 @@ fields:
     label: Active on
     type: date
     required: true
+    time: 
+      display: h:mm a
     width: 1/4
   expire:
     label: Inactive on
     type: date
     required: true
+    time: 
+      display: h:mm a
     width: 1/4
   tags:
     label: Campaign Categories

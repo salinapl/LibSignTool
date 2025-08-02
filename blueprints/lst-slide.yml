@@ -19,11 +19,19 @@ columns:
             label: Active on
             type: date
             required: true
+            time: 
+              display: h:mm a
+              notation: 24
+              default: 23:55
             width: 1/4
           expire:
             label: Inactive on
             type: date
             required: true
+            time: 
+              display: h:mm a
+              notation: 24
+              default: 23:55
             width: 1/4
           tags:
             label: Tags

@@ -2,6 +2,6 @@
         <?= css('/media/plugins/salinapl/libsigntool/css/templates/event.css') ?>
     </head>
     <body>
-        <?php snippet('lst-event') ?>
+        <?php snippet('lst-web-event') ?>
     </body>
 </html>

@@ -9,10 +9,10 @@ sections:
     layout: cards
     batch: true
     template: lst-slide
-    info: "Active on: {{ file.start }}</br>Inactive on: {{ file.expire }}</br>Tags: {{ file.tags }}"
+    info: "Active on: {{ file.start.toDate('m-d-Y H:i a') }}</br>Inactive on: {{ file.expire.toDate('m-d-Y H:i a') }}</br>Tags: {{ file.tags }}"
     sortBy: expire desc
     limit: 30
-    expire: "{{ file.expire.toDate('Y-m-d') }}"
+    expire: "{{ file.expire.toDate('Y-m-d H:i a') }}"
     image:
       ratio: 1/1
       cover: false

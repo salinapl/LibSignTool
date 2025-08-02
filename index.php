@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('America/Chicago'); 
 
 use Kirby\Cms\App;
 use Kirby\Toolkit\Str;
@@ -14,18 +15,18 @@ Kirby::plugin('salinapl/libsigntool', [
         'pages/lst-web' => __DIR__ . '/blueprints/lst-web.yml',
         'pages/lst-web-goal' => __DIR__ . '/blueprints/lst-web-goal.yml',
         'pages/lst-web-goal2' => __DIR__ . '/blueprints/goal2.yml',
-        'pages/lst-web-events' => __DIR__ . '/blueprints/events.yml',
+        'pages/lst-web-events' => __DIR__ . '/blueprints/lst-web-events.yml',
         'pages/lst-web-error' => __DIR__ . '/blueprints/lst-web-error.yml',
         'pages/lst-opac' => __DIR__ . '/blueprints/lst-opac.yml',
         'pages/lst-gallery' => __DIR__ . '/blueprints/lst-gallery.yml',
 
     ],
     'controllers' => [
-        'slideshow' => require __DIR__ . '/controllers/slideshow.php'
+        'lst-slideshow' => require __DIR__ . '/controllers/slideshow.php'
     ],
     'templates' => [
         'lst-web-error' => __DIR__ . '/templates/lst-web-error.php',
-        'lst-web-events' => __DIR__ . '/templates/events.php',
+        'lst-web-events' => __DIR__ . '/templates/lst-web-events.php',
         'lst-web-goal' => __DIR__ . '/templates/lst-web-goal.php',
         'lst-web-goal2' => __DIR__ . '/templates/goal2.php',
         'lst-opac' => __DIR__ . '/templates/lst-opac.php',
@@ -35,7 +36,7 @@ Kirby::plugin('salinapl/libsigntool', [
     ],
     'snippets' => [
         'lst-builder' => __DIR__ . '/snippets/builder.php',
-        'lst-event' => __DIR__ . '/snippets/event.php',
+        'lst-web-event' => __DIR__ . '/snippets/lst-web-event.php',
         'lst-footer' => __DIR__ . '/snippets/footer.php',
         'lst-header' => __DIR__ . '/snippets/header.php'
     ],
