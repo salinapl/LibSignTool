@@ -36,12 +36,14 @@ return function ($page, $site) {
             $filterTags     = array_unique(
                                 array_merge($pageTags, $eventTags, [$dayTag])
                             );
-            $sourceFiles    = $page->gallery()->toPages()->files();
+            $pages          = $page->gallery()->toPages();
+            $sourceFiles    = $pages->files();
         } else {
             $filterTags = $eventTags;
-            $sourceFiles    = $activeEvent->orgallery()->isNotEmpty()
-                            ? $activeEvent->orgallery()->toPages()->files()
-                            : $page->gallery()->toPages()->files();
+            $pages = $activeEvent->orgallery()->isNotEmpty()
+                    ? $activeEvent->orgallery()->toPages()
+                    : $page->gallery()->toPages();
+            $sourceFiles = $pages->files();
         }
 
         $delay          = $activeEvent->ordelay()->isNotEmpty()
@@ -51,7 +53,8 @@ return function ($page, $site) {
     } else {
         $filterTags     = array_unique(array_merge($pageTags, [$dayTag]));
         $delay          = $page->delay();
-        $sourceFiles    = $page->gallery()->toPages()->files();
+        $pages          = $page->gallery()->toPages();
+        $sourceFiles    = $pages->files();
     }
 
     // Fetches the selected gallery based on the campaign page

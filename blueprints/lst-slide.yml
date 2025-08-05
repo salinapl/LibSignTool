@@ -42,7 +42,6 @@ columns:
           orientation:
             label: Video Orientation
             type: select
-            default: landscape
             options:
               portrait: Portrait
               landscape: Landscape
