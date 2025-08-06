@@ -1,0 +1,12 @@
+{
+    "name": "salinapl/libsigntool",
+    "description": "A Simple and flexible digital signage and OPAC greeter built for public terminals.",
+    "version": "5.0.3-p6",
+    "license": "GPL-3.0",
+    "authors": [
+        {
+            "name": "Salina Public Library",
+            "email": "tech.lib@salinapublic.org"
+        }
+    ]
+}

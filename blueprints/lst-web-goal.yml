@@ -1,0 +1,42 @@
+template: lst-web-goal
+title: Goal Page
+icon: 🎉
+fields:
+  headline:
+    label: Headline
+    type: text
+  goal:
+    label: Goal Number
+    type: number
+  current:
+    label: Current Number
+    type: number
+  dollar:
+    type: toggle
+    text:
+      - "Disabled"
+      - "Enabled"
+    label: Cash Goal
+  textbody:
+    label: Text Body
+    type: textarea
+  start:
+    label: Active on
+    type: date
+    required: true
+    time: 
+      display: h:mm a
+    width: 1/4
+  expire:
+    label: Inactive on
+    type: date
+    required: true
+    time: 
+      display: h:mm a
+    width: 1/4
+  tags:
+    label: Campaign Categories
+    type: multiselect
+    accept: options
+    options: query
+    query: site.find("slideshows").tags.split(',')

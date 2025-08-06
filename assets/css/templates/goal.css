@@ -11,7 +11,7 @@ html, body{
 }
 html{
     box-sizing:border-box;
-    min-width:425px;
+    min-width:413px;
 }
 h1{
     color: #fafafa;

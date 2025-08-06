@@ -1,0 +1,71 @@
+title: slideshow
+icon: 📺
+fields:
+  delay:
+    label: Delay
+    type: number
+    help: Set the delay between slides (calculated in Milliseconds)
+    min: 1000
+  gallery:
+    label: Image Gallery
+    type: pages
+    query: page.parent.children.filterBy('intendedTemplate', 'lst-gallery')
+  tags:
+    label: Campaign Categories
+    type: multiselect
+    accept: options
+    options: query
+    query: page.parent.tags.split(',')
+  events:
+    label: Events
+    type: structure
+    fields:
+      event:
+        label: Event Name
+        type: text
+        maxlength: 32
+      append:
+        label: Replace or Append Slides?
+        type: toggle
+        default: false
+        text:
+          - Replace
+          - Append
+        help: Choose if the event replaces all slides or appends event slides along regular slides.
+      start:
+        label: Active on
+        type: date
+        required: true
+        time: 
+          display: h:mm a
+          notation: 24
+          default: 23:55
+      expire:
+        label: Inactive on
+        type: date
+        required: true
+        time: 
+          display: h:mm a
+          notation: 24
+          default: 23:55
+      ordelay:
+        label: Delay
+        type: number
+        help: Optionally set a different delay between slides during events (calculated in Milliseconds), unavaiable when appending slides.
+        min: 1000
+        when:
+          append: false
+      orgallery:
+        label: Image Gallery
+        type: pages
+        help: Optionally replace the slide gallery with a different slide gallery, unavaiable when appending slides.
+        query: page.parent.children.filterBy('intendedTemplate', 'lst-gallery')
+        when:
+          append: false
+      ortags:
+        label: Event Categories
+        type: multiselect
+        required: true
+        accept: options
+        options: query
+        query: page.parent.tags.split(',')

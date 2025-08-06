@@ -1,0 +1,47 @@
+title: Goal Page 2
+icon: 🎉
+fields:
+  headline:
+    label: Headline
+    type: text
+  goal:
+    label: Goal Number
+    type: number
+  current:
+    label: Current Number
+    type: number
+  dollar:
+    type: toggle
+    text:
+      - "Disabled"
+      - "Enabled"
+    label: Cash Goal
+  textbody:
+    label: Text Body
+    type: textarea
+  startdate:
+    label: Active on
+    type: date
+    required: true
+    width: 1/4
+  starttime:
+    label: Start Time
+    type: time
+    display: h:mm a
+    width: 1/4
+  expiredate:
+    label: Inactive on
+    type: date
+    required: true
+    width: 1/4
+  expiretime:
+    label: Expire Time
+    type: time
+    display: h:mm a
+    width: 1/4
+  tags:
+    label: Campaign Category
+    type: select
+    accept: options
+    options: query
+    query: site.tags.split(',')

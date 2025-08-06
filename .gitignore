@@ -8,8 +8,6 @@ Icon
 #--------------
 /kirby/*
 .htaccess
-/composer.json
-/index.php
 site/blueprints/users
 site/blueprints/users/*
 site/blueprints/users/default.yml

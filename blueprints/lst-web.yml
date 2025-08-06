@@ -1,0 +1,28 @@
+title: Error Notice
+icon: 🚨
+columns:
+  - width: 2/3
+    fields:
+      icon:
+        label: Icon
+        type: text
+        width: 1/2
+      headline:
+        label: Headline
+        type: text
+        width: 1/2
+      body:
+        type: textarea
+  - width: 1/3
+    sections:
+      slides:
+        type: pages
+        layout: list
+        batch: true
+        template:
+          - lst-web-goal
+          - lst-web-goal2
+          - lst-web-event
+          - lst-web-error
+          - default
+
