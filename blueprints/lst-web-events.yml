@@ -2,8 +2,8 @@ title: Events Page
 icon: 🎉
 fields:
   embed:
-    extends: fields/links
     label: Embed URL
+    type: url
   start:
     label: Active on
     type: date
@@ -19,4 +19,4 @@ fields:
     type: select
     accept: options
     options: query
-    query: site.tags.split(',')
+    query: page.parent.tags.split(',')

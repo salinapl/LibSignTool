@@ -38,5 +38,5 @@ columns:
         template:
           - lst-web-goal
           - lst-web-goal2
-          - lst-web-event
+          - lst-web-events
           - lst-web-error

@@ -4,9 +4,7 @@
 <script>
     const ul = document.getElementById('evlist');
     const list = document.createDocumentFragment();
-<?php foreach($page->embed()->toStructure() as $links): ?>
-    const url = '<?= $links->link() ?>'; 
-<?php endforeach ?>        
+    const url = '<?= $page->embed() ?>';       
     fetch(url) 
         .then((response) => { 
             return response.json(); 
