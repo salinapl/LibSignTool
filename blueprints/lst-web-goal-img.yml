@@ -1,5 +1,4 @@
-template: lst-web-goal
-title: Goal Page
+title: Goal Page 2
 icon: 🎉
 fields:
   headline:
@@ -22,21 +21,11 @@ fields:
     type: textarea
   start:
     label: Active on
-    type: date
-    required: true
-    time: 
-      display: h:mm a
-    width: 1/4
+    extends: fields/lst-times
+    default: today 08:55
   expire:
     label: Inactive on
-    type: date
-    required: true
-    time: 
-      display: h:mm a
-    width: 1/4
+    extends: fields/lst-times
+    default: today + 1 day 23:55
   tags:
-    label: Campaign Categories
-    type: multiselect
-    accept: options
-    options: query
-    query: site.find("slideshows").tags.split(',')
+    extends: fields/lst-tags

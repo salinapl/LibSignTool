@@ -100,7 +100,7 @@ return function ($page, $site) {
                 : $file->resize(1080, null)->url();
 
             $link = $file->link()->isNotEmpty()
-                ? ' href="' . $file->link()->url() . '"'
+                ? ' href="' . $file->link()->url() . '"' . 'target="_blank"'
                 : '';
 
             $slides[] = "<a{$link} {$class}{$url})\"></a>";

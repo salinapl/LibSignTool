@@ -1,19 +1,20 @@
-<?php snippet('lst-header') ?>
-        <?= css('/media/plugins/salinapl/libsigntool/css/templates/goal2.css') ?>
-    <?php
-        $goal = $page->goal()->toInt();
-        $numb = $page->current()->toInt();
-        $percent = $numb / $goal * 100;
-        $progress = match (true) {
-            $percent >= 100 => "sg100",
-            $percent >= 75 => "sg75",
-            $percent >= 50 => "sg50",
-            $percent >= 25 => "sg25",
-            default => "sg0"
-        };
-    ?>
-    </head>
-    <body>
+<?php snippet('lst-layout', slots: true) ?>
+    <?php slot('lstHeader') ?>
+        <?= css('/media/plugins/salinapl/libsigntool/css/templates/goal-img.css') ?>
+        <?php
+            $goal = $page->goal()->toInt();
+            $numb = $page->current()->toInt();
+            $percent = $numb / $goal * 100;
+            $progress = match (true) {
+                $percent >= 100 => "sg100",
+                $percent >= 75 => "sg75",
+                $percent >= 50 => "sg50",
+                $percent >= 25 => "sg25",
+                default => "sg0"
+            };
+        ?>
+    <?php endslot() ?>
+    <?php slot() ?>
         <div class="sbgwrapper">
             <div class="snowcontainer">
                 <div class="snow snow1"></div>
@@ -37,5 +38,5 @@
             <h1><?= $page->headline() ?></h1>
             <p><?= kirbytext($page->textbody()) ?></p>
         </div>
-    </body>
-</html>
+    <?php endslot() ?>
+<?php endsnippet() ?>

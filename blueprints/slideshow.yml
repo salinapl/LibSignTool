@@ -11,11 +11,7 @@ fields:
     type: pages
     query: page.parent.children.filterBy('intendedTemplate', 'lst-gallery')
   tags:
-    label: Campaign Categories
-    type: multiselect
-    accept: options
-    options: query
-    query: page.parent.tags.split(',')
+    extends: fields/lst-tags
   events:
     label: Events
     type: structure
@@ -34,20 +30,12 @@ fields:
         help: Choose if the event replaces all slides or appends event slides along regular slides.
       start:
         label: Active on
-        type: date
-        required: true
-        time: 
-          display: h:mm a
-          notation: 24
-          default: 23:55
+        extends: fields/lst-times
+        default: today 08:55
       expire:
         label: Inactive on
-        type: date
-        required: true
-        time: 
-          display: h:mm a
-          notation: 24
-          default: 23:55
+        extends: fields/lst-times
+        default: today + 1 day 23:55
       ordelay:
         label: Delay
         type: number
@@ -64,8 +52,5 @@ fields:
           append: false
       ortags:
         label: Event Categories
-        type: multiselect
+        extends: fields/lst-tags
         required: true
-        accept: options
-        options: query
-        query: page.parent.tags.split(',')

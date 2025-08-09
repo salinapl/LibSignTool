@@ -21,7 +21,7 @@ columns:
           - lst-slideshow
   - width: 1/3
     sections:
-      slidegalleries:
+      slideGalleries:
         label: Shared Slide Galleries
         type: pages
         layout: cardlets

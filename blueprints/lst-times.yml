@@ -1,0 +1,6 @@
+type: date
+required: true
+time: 
+  display: h:mm a
+  notation: 24
+width: 1/4

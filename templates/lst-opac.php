@@ -1,16 +1,15 @@
-<?php snippet('lst-header') ?>
+<?php snippet('lst-layout', slots: true) ?>
+    <?php slot('lstHeader') ?>
         <?= css('/media/plugins/salinapl/libsigntool/fonts/remixicon.css') ?>
-        <?= css('/media/plugins/salinapl/libsigntool/css/flickity.min.css') ?>
         <?= css('/media/plugins/salinapl/libsigntool/css/templates/opac.css') ?>
-        <?php //snippet('analytics') ?>
-    </head>
-    <body>
+    <?php endslot() ?>
+    <?php slot() ?>
         <div class="flex-box">
             <div class="flex-item">
                 <div class="flex-full-width">
 
                     <div class="logo">
-                        <?php if($headerImage = $page->header_image()->toFile()): ?>
+                        <?php if($headerImage = $page->headerImage()->toFile()): ?>
                             <img src="<?= $headerImage->url() ?>">
                         <?php endif ?>
                     </div>
@@ -28,4 +27,5 @@
                 </div>
             <?php endif ?>
         </div>
-        <?php snippet('lst-footer') ?>
+    <?php endslot() ?>
+<?php endsnippet() ?>

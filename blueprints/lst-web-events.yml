@@ -6,17 +6,11 @@ fields:
     type: url
   start:
     label: Active on
-    type: date
-    required: true
-    width: 1/4
+    extends: fields/lst-times
+    default: today 08:55
   expire:
     label: Inactive on
-    type: date
-    required: true
-    width: 1/4
+    extends: fields/lst-times
+    default: today + 1 day 23:55
   tags:
-    label: Campaign Category
-    type: select
-    accept: options
-    options: query
-    query: page.parent.tags.split(',')
+    extends: fields/lst-tags

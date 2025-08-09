@@ -6,14 +6,14 @@ use Kirby\Data\Yaml;
 
 Kirby::plugin('salinapl/libsigntool', [
     'blueprints' => [
-        'fields/lst-links' => __DIR__ . '/blueprints/lst-links.yml',
+        'fields/lst-times' => __DIR__ . '/blueprints/lst-times.yml',
+        'fields/lst-tags' => __DIR__ . '/blueprints/lst-tags.yml',
         'files/lst-slide' => __DIR__ . '/blueprints/lst-slide.yml',
         'pages/lst-placeholder' => __DIR__ . '/blueprints/lst-placeholder.yml',
         'pages/lst-slideshows' => __DIR__ . '/blueprints/slideshows.yml',
         'pages/lst-slideshow' => __DIR__ . '/blueprints/slideshow.yml',
-        'pages/lst-web' => __DIR__ . '/blueprints/lst-web.yml',
-        'pages/lst-web-goal' => __DIR__ . '/blueprints/lst-web-goal.yml',
-        'pages/lst-web-goal2' => __DIR__ . '/blueprints/goal2.yml',
+        'pages/lst-web-goal-bar' => __DIR__ . '/blueprints/lst-web-goal-bar.yml',
+        'pages/lst-web-goal-img' => __DIR__ . '/blueprints/lst-web-goal-img.yml',
         'pages/lst-web-events' => __DIR__ . '/blueprints/lst-web-events.yml',
         'pages/lst-web-error' => __DIR__ . '/blueprints/lst-web-error.yml',
         'pages/lst-opac' => __DIR__ . '/blueprints/lst-opac.yml',
@@ -26,34 +26,15 @@ Kirby::plugin('salinapl/libsigntool', [
     'templates' => [
         'lst-web-error' => __DIR__ . '/templates/lst-web-error.php',
         'lst-web-events' => __DIR__ . '/templates/lst-web-events.php',
-        'lst-web-goal' => __DIR__ . '/templates/lst-web-goal.php',
-        'lst-web-goal2' => __DIR__ . '/templates/goal2.php',
+        'lst-web-goal-bar' => __DIR__ . '/templates/lst-web-goal-bar.php',
+        'lst-web-goal-img' => __DIR__ . '/templates/lst-web-goal-img.php',
         'lst-opac' => __DIR__ . '/templates/lst-opac.php',
-        'lst-web' => __DIR__ . '/templates/lst-web.php',
         'lst-slideshow' => __DIR__ . '/templates/slideshow.php',
         'lst-slideshows' => __DIR__ . '/templates/slideshows.php'
     ],
     'snippets' => [
-        'lst-builder' => __DIR__ . '/snippets/builder.php',
-        'lst-web-event' => __DIR__ . '/snippets/lst-web-event.php',
-        'lst-footer' => __DIR__ . '/snippets/footer.php',
-        'lst-header' => __DIR__ . '/snippets/header.php'
-    ],
-    'options' => [
-        // checks for landscape or portrait tag in URL
-        'routes' => [
-            [
-                'pattern' => 'slideshows/(:any)/(landscape|portrait)/(:all)?',
-                'action' => function ($slug, $orientation, $tail = null) {
-                    $path = 'slideshows/' . $slug . ($tail ? '/' . $tail : '');
-                    $data = [
-                        'orientation' => $orientation,
-                    ];
-                    
-                    return page($path)?->render($data);
-                }
-            ]
-        ]
+        'lst-layout' => __DIR__ . '/snippets/lst-layout.php',
+        'lst-web-event-js' => __DIR__ . '/snippets/lst-web-event-js.php',
     ],
     'fields' => [
         'slideshowSelect' => [
@@ -121,5 +102,4 @@ Kirby::plugin('salinapl/libsigntool', [
             }
         }
     ]
-        // plugin magic happens here
 ]);
