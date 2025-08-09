@@ -21,7 +21,8 @@ Kirby::plugin('salinapl/libsigntool', [
 
     ],
     'controllers' => [
-        'lst-slideshow' => require __DIR__ . '/controllers/slideshow.php'
+        'lst-slideshow' => require __DIR__ . '/controllers/slideshow.php',
+        'lst-web-events' => require __DIR__ . '/controllers/lst-web-events.php'
     ],
     'templates' => [
         'lst-web-error' => __DIR__ . '/templates/lst-web-error.php',
@@ -35,6 +36,7 @@ Kirby::plugin('salinapl/libsigntool', [
     'snippets' => [
         'lst-layout' => __DIR__ . '/snippets/lst-layout.php',
         'lst-web-event-js' => __DIR__ . '/snippets/lst-web-event-js.php',
+        'lst-web-event-php' => __DIR__ . '/snippets/lst-web-event-php.php',
     ],
     'fields' => [
         'slideshowSelect' => [

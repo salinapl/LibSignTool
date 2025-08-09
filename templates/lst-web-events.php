@@ -3,6 +3,6 @@
         <?= css('/media/plugins/salinapl/libsigntool/css/templates/event.css') ?>
     <?php endslot() ?>
     <?php slot() ?>
-        <?php snippet('lst-web-event-js') ?>
+        <?php snippet('lst-web-event-php') ?>
     <?php endslot() ?>
 <?php endsnippet() ?>
