@@ -38,10 +38,17 @@ return function($page) {
         // Pull in the array from the website
         $jsonArray = json_decode($json, true);
 
-        $resetBranch = $jsonArray['branch'];
-        $resetRoom = $jsonArray['room'];
-        $branchValue = reset($resetBranch);
-        $roomValue = reset($resetRoom);
+        foreach ($jsonArray as &$item) {
+            $item['branch'] =
+                isset($item['branch']) && is_array($item['branch'])
+                ? reset($item['branch'])
+                : ($item['branch'] ?? '');
+            $item['room'] =
+                isset($item['room']) && is_array($item['room'])
+                ? reset($item['room'])
+                : ($item['room'] ?? '');
+        }
+        unset($item);
 
         // Filter out cancelled events from the array and reset array index
         $jsonArray = array_values(
@@ -56,12 +63,6 @@ return function($page) {
         );
 
         unset($item);
-
-        $roomArray = [
-            'branch' => $resetBranch,
-            'room' => $resetRoom
-        ];
-        $jsonArray[] = $roomArray;
         
         // Prep today and tommorow variables
         $today = new DateTime();

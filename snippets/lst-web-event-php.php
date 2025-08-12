@@ -1,18 +1,51 @@
 <ul class="evlist">
     <?php foreach($arrayReady as $jsonData): ?>
         <?php
-            $startDate = strtotime($jsonData['start_date']);
-            $startTime = date("g:ia", $startDate);
-            $endDate = strtotime($jsonData['end_date']);
-            $endTime = date("g:ia", $endDate);
+            $rawStartDt = $jsonData['start_date'];
+            $startDate  = new DateTime($rawStartDt);
+            $rawEndDt   = $jsonData['end_date'];
+            $endDate    = new DateTime($rawEndDt);
+            $title      = $jsonData['title'];
+            $branch     = trim($jsonData['branch']);
+            $room       = trim($jsonData['room']);
+            $dateString = '';
+            $timeString = '';
+
+            // Check if event lasts longer than a day
+            // Set date and time string if only 1 day event
+            // else set a start and end date and no time string
+            if ($startDate->format('Y-m-d') === $endDate->format('Y-m-d')) {
+                $dateString = $startDate->format('l, F jS') . ' ';
+
+                $timeString = $startDate->format('g:ia')
+                            . ' - '
+                            . $endDate->format('g:ia');
+            } else {
+                $dateString = $startDate->format('l, F jS')
+                            . ' - '
+                            . $endDate->format('l, F jS');
+            }
+
+            // Check if branch and room are unique, collapse if not
+            $location = array_filter(
+                array_unique([$branch, $room]),
+                fn($v) => $v !== ''
+            );
+            
+            // build location string
+            $string = '';
+            if(!empty($location)) {
+                $string = ' | ' . implode(' - ', $location);
+            }
         ?>
         <li>
-            <h2><?= $jsonData['title'] . "|" . $jsonData['branch'][0] ?></h2>
+            <h2><?= htmlspecialchars($title . $string) ?></h2>
             <span class="time">
-                <?= $startTime . '-' . $endTime?>
+                <?= htmlspecialchars($timeString) ?>
             </span>
             <span>
-                <?= date("l, F jS", $startDate) ?>
+                <?= htmlspecialchars($dateString) ?>
+            </span>
         </li>
     <?php endforeach ?>
 </ul>
