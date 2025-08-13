@@ -2,15 +2,16 @@
     <?php slot('lstHeader') ?>
         <?= css('/media/plugins/salinapl/libsigntool/css/flickity.min.css') ?>
         <?= css('/media/plugins/salinapl/libsigntool/css/templates/slideshow.css') ?>
-        <?php
-        $orientation = get('orientation');
-        if (!$orientation && !isset($_GET['tried'])): ?>
+        <?php if (!get('orientation')): ?>
             <script>
-                const base = "<?= $page->url() ?>";
-                const orientation = window.matchMedia("(orientation: portrait)").matches ? "portrait" : "landscape";
-                window.location.replace(base + "?orientation=" + orientation + "&tried=1");
-        </script>
-        <?php exit; ?>
+                window.addEventListener('load', () => {
+                    const orientation = window.matchMedia("(orientation: portrait)").matches 
+                    ? "portrait" 
+                    : "landscape";
+                    window.location.replace(`<?= $page->url() ?>?orientation=${orientation}`);
+                });
+            </script>
+            <?php exit; ?>
         <?php endif ?>
     <?php endslot() ?>
     <?php slot() ?>
