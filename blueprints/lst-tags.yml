@@ -1,0 +1,4 @@
+label: Campaign Categories
+type: multiselect
+options: query
+query: site.find('slideshows').tags.split(',')

@@ -1,0 +1,32 @@
+template: lst-web-goal
+title: Goal Page
+icon: 🎉
+fields:
+  headline:
+    label: Headline
+    type: text
+  goal:
+    label: Goal Number
+    type: number
+  current:
+    label: Current Number
+    type: number
+  dollar:
+    type: toggle
+    text:
+      - "Disabled"
+      - "Enabled"
+    label: Cash Goal
+  textbody:
+    label: Text Body
+    type: textarea
+  start:
+    label: Active on
+    extends: fields/lst-times
+    default: today + 1 day 08:55
+  expire:
+    label: Inactive on
+    extends: fields/lst-times
+    default: today + 2 days 23:55
+  tags:
+    extends: fields/lst-tags

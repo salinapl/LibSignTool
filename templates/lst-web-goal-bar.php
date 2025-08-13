@@ -1,12 +1,13 @@
-<?php snippet('lst-header') ?>
-        <?= css('/media/plugins/salinapl/libsigntool/css/templates/goal.css') ?>
-    <?php
-        $goal = $page->goal()->toInt();
-        $numb = $page->current()->toInt();
-        $percent = $numb / $goal * 100;
-    ?>
-    </head>
-    <body>
+<?php snippet('lst-layout', slots: true) ?>
+    <?php slot('lstHeader') ?>
+        <?= css('/media/plugins/salinapl/libsigntool/css/templates/goal-bar.css') ?>
+        <?php
+            $goal = $page->goal()->toInt();
+            $numb = $page->current()->toInt();
+            $percent = $numb / $goal * 100;
+        ?>
+    <?php endslot() ?>
+    <?php slot() ?>
         <h1><?= $page->headline() ?></h1>
         <div class="progress-wrapper">
             <div class="progress-bar progress-round" style="width:<?=$percent ?>%"></div>
@@ -19,5 +20,5 @@
             <?php endif ?>
             <p><?= kirbytext($page->textbody()) ?></p>
         </div>
-    </body>
-</html>
+    <?php endslot() ?>
+<?php endsnippet() ?>

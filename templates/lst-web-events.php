@@ -1,7 +1,8 @@
-<?php snippet('lst-header') ?>
+<?php snippet('lst-layout', slots: true) ?>
+    <?php slot('lstHeader') ?>
         <?= css('/media/plugins/salinapl/libsigntool/css/templates/event.css') ?>
-    </head>
-    <body>
-        <?php snippet('lst-web-event') ?>
-    </body>
-</html>
+    <?php endslot() ?>
+    <?php slot() ?>
+        <?php snippet('lst-web-event-php') ?>
+    <?php endslot() ?>
+<?php endsnippet() ?>

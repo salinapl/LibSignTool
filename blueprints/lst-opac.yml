@@ -4,7 +4,7 @@ columns:
   left:
     width: 2/3
     fields:
-      htmltitle:
+      titleText:
         label: Page Title
         type: text
       headline:
@@ -27,9 +27,12 @@ columns:
     width: 1/3
     fields:
       ref:
-        extends: fields/lst-links
+        type: info
         label: Refrence Links
-      header_image:
+        text: |
+          use this site to get class codes for icons: 
+          * (link: https://remixicon.com/ text: remixicon.com)
+      headerImage:
         type: files
         query: page.images
         multiple: false

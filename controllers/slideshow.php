@@ -33,17 +33,21 @@ return function ($page, $site) {
         $append         = $activeEvent->append()->bool();
         $eventTags      = $activeEvent->ortags()->split(',');
         if ($append) {
-            $filterTags     = array_unique(
-                                array_merge($pageTags, $eventTags, [$dayTag])
-                            );
-            $pages          = $page->gallery()->toPages();
-            $sourceFiles    = $pages->files();
+            $slideTags  = array_unique(
+                            array_merge($pageTags, $eventTags)
+                        );
+            $filterTags = array_unique(
+                            array_merge($pageTags, $eventTags, [$dayTag])
+                        );
+            $pages      = $page->gallery()->toPages();
         } else {
-            $filterTags = $eventTags;
+            $slideTags  = $eventTags;
+            $filterTags = array_unique(
+                            array_merge($eventTags, [$dayTag])
+                        );
             $pages = $activeEvent->orgallery()->isNotEmpty()
                     ? $activeEvent->orgallery()->toPages()
                     : $page->gallery()->toPages();
-            $sourceFiles = $pages->files();
         }
 
         $delay          = $activeEvent->ordelay()->isNotEmpty()
@@ -51,17 +55,19 @@ return function ($page, $site) {
                             : $page->delay();
         
     } else {
-        $filterTags     = array_unique(array_merge($pageTags, [$dayTag]));
+        $slideTags      = $pageTags;
+        $filterTags     = array_unique(array_merge($slideTags, [$dayTag]));
         $delay          = $page->delay();
         $pages          = $page->gallery()->toPages();
-        $sourceFiles    = $pages->files();
     }
+
+    $sourceFiles = $pages->files();
 
     // Fetches the selected gallery based on the campaign page
     // then filters the gallery based on the selected tags.
     $gallery = $sourceFiles
                     ->filterBy('tags', 'in', $filterTags, ',')
-                    ->filter(function($file) use($orientation, $now) {
+                    ->filter(function($file) use($orientation, $now, $dayTag, $slideTags) {
                         // orientation match
                         if($orientation && $file->orientation() != $orientation) {
                             return false;
@@ -70,8 +76,21 @@ return function ($page, $site) {
                     // the campaigns start and end date
                     $slidestart = new DateTime($file->start());
                     $slideend = new DateTime($file->expire());
-                    return $slideend > $now
-                        && $slidestart <= $now;
+                    if(!($slideend > $now && $slidestart <= $now)) {
+                        return false;
+                    }
+
+                    // If it's a reccuring (day-tag) slide, it must also share
+                    // at least one of the set slideshow tags.
+                    $fileTags = $file->tags()->split(',');
+                    if (in_array($dayTag, $fileTags, true)) {
+                        $common = array_intersect($fileTags, $slideTags);
+                        if (empty($common)) {
+                            return false;
+                        }
+                    }
+
+                    return true;
     });
 
     // Queries the children of slideshows for templates matching lst-web,
@@ -100,7 +119,7 @@ return function ($page, $site) {
                 : $file->resize(1080, null)->url();
 
             $link = $file->link()->isNotEmpty()
-                ? ' href="' . $file->link()->url() . '"'
+                ? ' href="' . $file->link()->url() . '"' . 'target="_blank"'
                 : '';
 
             $slides[] = "<a{$link} {$class}{$url})\"></a>";

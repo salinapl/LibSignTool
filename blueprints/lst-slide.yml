@@ -17,28 +17,17 @@ columns:
             type: headline
           start:
             label: Active on
-            type: date
-            required: true
-            default: today 08:55
-            time: 
-              display: h:mm a
-              notation: 24
-            width: 1/4
+            extends: fields/lst-times
+            default: today + 1 day 08:55
           expire:
             label: Inactive on
-            type: date
-            required: true
-            default: today + 1 day 23:55
-            time: 
-              display: h:mm a
-              notation: 24
-            width: 1/4
+            extends: fields/lst-times
+            default: today + 2 days 23:55
           tags:
-            label: Tags
             width: 1
             type: multiselect
             options: query
-            query: site.find('slideshows').tags.split(',')
+            query: site.tagsWithDays()
           orientation:
             label: Video Orientation
             type: select
