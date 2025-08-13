@@ -52,6 +52,29 @@ Kirby::plugin('salinapl/libsigntool', [
             ]
         ]
     ],
+    'siteMethods' => [
+        // this method lives on the `site()` object
+        'tagsWithDays' => function (): array {
+            // fetch your slideshows page
+            $page = site()->find('slideshows');
+
+            // get its tags or an empty array
+            $tags = [];
+            if ($page && $page->tags()->isNotEmpty()) {
+            $tags = $page->tags()->split(',');
+            }
+
+            // the seven weekdays
+            $weekdays = [
+            'sunday', 'monday', 'tuesday',
+            'wednesday','thursday','friday',
+            'saturday'
+            ];
+
+            // merge, dedupe, reindex
+            return array_values(array_unique(array_merge($tags, $weekdays)));
+        }
+    ],
     'hooks' => [
         // fires after plugins are registered
         'system.loadPlugins:after' => function () {

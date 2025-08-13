@@ -25,7 +25,9 @@ columns:
             default: today + 1 day 23:55
           tags:
             width: 1
-            extends: fields/lst-tags
+            type: multiselect
+            options: query
+            query: site.tagsWithDays()
           orientation:
             label: Video Orientation
             type: select
