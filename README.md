@@ -18,8 +18,10 @@ Originally forked from [catsoup11789/LibraryDigitalSignage](https://github.com/c
 - Web-based live slides for tasks such as calendar events or event goals
 - Video slides
 - Capability for multiple source image galleries
-- Built-in Greeter page with easily customizable Link Buttons
-- Start and stop date system for pre-planning when Campaigns should start and end
+- Built-in Greeter (OPAC) page with easily customizable Link Buttons
+- Start and stop date and time system for pre-planning when Campaigns should start and end
+- Recurring slides that only activate one day a week
+- Event period that can append or replace slides during an event period
 
 ## Download and Install
 
@@ -43,14 +45,42 @@ install and backup. Just copy the folder you installed Kirby and LibSignTool to 
 
 To upgrade Kirby, simply download the newest version of the plainkit, Delete the "kirby" and "media" folders from your install folder, and copy the new versions from the plainkit into the folder. Always refer to the offical Kirby documentation for upgrade instructions as these are subject to change between releases.
 
-LibSignTool is built on Kirby 3. Staying within the same generation of releases should be fine, but wait for offical word before upgrading to possible future KirbyCMS generations such as Kirby 4
-
-#### Kirby 4
-Kirby 4 is now fully supported, Kirby 3 is not supported in versions v0.3.0 and newer
+LibSignTool is built on Kirby. Pay attention to the version when downloading the 3 starting numbers denote the version of Kirby the plugin is built for, -p# is the build number. Staying within the same generation of releases should be fine, but wait for a new version with the appropriate release number for major release updates.
 
 ### LibSignTool
 
-Follow instructions provided in the release notes. We will generally advise to back up the site, content, and any other folders you have modified before upgrading. Typically extracting everything from the upgrade archive but the content folder is sufficent to avoid issues with data loss, but a backup is always recommended before attempting an upgrade.
+#### New Install
+
+* Manual Install: Download the release .zip file and extract to your site/plugins folder (should be a folder titled libsigntool-5.0.3-p6)
+* Composer Install: `composer require salinapl/libsigntool`
+* Git Submodule install: `git submodule add https://github.com/salinapl/libsigntool.git site/plugins/libsigntool`
+
+After installation, be sure to set your default timezone on the server in the php.ini file or at the top of Kirby's index.php like the following: `date_default_timezone_set('America/Chicago');`
+
+#### Upgrade from version Prior to 5.0.3-p6
+
+1. Backup your whole site, move a copy of the content folder to somewhere to reference it later.
+2. Delete the following files in the site folder:
+
+   * assets/ (excluding files not created by LibSignTool you have added, assets now handled separately within plugin)
+   * site/blueprints/ (excluding files not created by LibSignTool you have added)
+   * site/config/config.php (if you have edited the config.php yourself, refer to the last released version to see which lines to remove, mostly to do with landscape/portrait routing, as it's in the plugin now)
+   * site/controllers/ (excluding files not created by LibSignTool you have added)
+   * site/snippets/ (excluding files not created by LibSignTool you have added)
+   * site/templates/ (excluding files not created by LibSignTool you have added)
+   * media/ (This folder renders images as needed by Kirby creating thumbnails and such, it's good practice to delete this between Kirby versions, since so much is changing here, we delete it too)
+   * You can also delete the .gitignore and LICENSE files, as these are moved to the plugin and mostly for reference.
+
+3. Delete the content folder, then install the plugin using one of the methods above, on it's first run it will create a slideshows folder.
+4. Before you can load the panel, you will need to create a site.yaml or modify the old one and place it in site/blueprints/. I recommend using the Kirby default site.yml in the KirbyCMS plainkit until you create your own preferred layout. I recommend spinning up a local install of Kirby and installing this plugin there to create your site.yml before the transition.
+5. once in the panel, You can either manually reconfigure the slide content files and re-integrate them, but there's enough changes from prior versions I recommend re-uploading the slide images and re-assigning their start/expire and tags by hand to prevent issues. Video and image content now live in the same folder, image orientation can still be determined automatically, but video content still needs the orientation tag set manually, but since they share a folder both types of content share the field.
+6. OPAC pages are not created on installation, you should be able to move over your existing pages from the content folder, however you will need to reconfigure them as OPAC pages now select a paired slideshow instead of acting as their own slideshow as they previously did.
+
+#### Upgrade from version After 5.0.3-p6
+1. Backup your whole site as a general safety practice
+2. If installed using composer or git, update using those programs.
+3. If manually installed, delete the current plugin in site/plugins and extract the new version to that folder
+4. follow any directions on the release page for specific conversions needed from previous versions.
 
 ## A Note about Licensing
 
