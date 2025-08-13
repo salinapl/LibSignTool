@@ -29,8 +29,4 @@ fields:
     extends: fields/lst-times
     default: today + 1 day 23:55
   tags:
-    label: Campaign Categories
-    type: multiselect
-    accept: options
-    options: query
-    query: site.find("slideshows").tags.split(',')
+    extends: fields/lst-tags
