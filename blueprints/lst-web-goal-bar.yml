@@ -23,10 +23,10 @@ fields:
   start:
     label: Active on
     extends: fields/lst-times
-    default: today 08:55
+    default: today + 1 day 08:55
   expire:
     label: Inactive on
     extends: fields/lst-times
-    default: today + 1 day 23:55
+    default: today + 2 days 23:55
   tags:
     extends: fields/lst-tags
