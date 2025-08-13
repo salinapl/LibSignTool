@@ -4,6 +4,9 @@ fields:
   embed:
     label: Embed URL
     type: url
+  headline:
+    label: Page Headline
+    type: text
   start:
     label: Active on
     extends: fields/lst-times
