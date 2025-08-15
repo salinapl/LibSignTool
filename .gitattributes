@@ -1,2 +1,4 @@
+assets/bootstrap-reboot.min.css linguist-vendored
+assets/css/flickity.min.css linguist-vendored
 assets/fonts/** linguist-vendored
-assets/js/** linguist-vendored
+assets/js/flickity.pkgd.min.js linguist-vendored
