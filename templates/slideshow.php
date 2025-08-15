@@ -5,10 +5,12 @@
         <?php if (!get('orientation')): ?>
             <script>
                 window.addEventListener('load', () => {
-                    const orientation = window.matchMedia("(orientation: portrait)").matches 
-                    ? "portrait" 
-                    : "landscape";
-                    window.location.replace(`<?= $page->url() ?>?orientation=${orientation}`);
+                    setTimeout(() => {
+                        const orientation = window.matchMedia("(orientation: portrait)").matches 
+                        ? "portrait" 
+                        : "landscape";
+                        window.location.replace(`<?= $page->url() ?>?orientation=${orientation}`);
+                    }, 2000); // 2 second delay to allow page to paint and settle
                 });
             </script>
             <?php exit; ?>
