@@ -1,5 +1,1 @@
-*.css linguist-detectable=false
-*.html linguist-detectable=false
-*.less linguist-detectable=false
-*.scss linguist-detectable=false
-*.styl linguist-detectable=false
+assets/fonts/** linguist-vendored
