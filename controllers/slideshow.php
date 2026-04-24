@@ -113,7 +113,8 @@ return function ($page, $site) {
     // Creates an empty array then assembles the slides into strings
     // then assembles the html and outputs the result into the array.
     $slides = array();
-    $class = 'class="carousel-cell ad" style="background-image:url(';
+    $flickity = 'class="carousel-cell"';
+    $bgimage = 'style="background-image:url(';
     foreach($gallery as $file) {
         // Images
         if($file->type() === 'image') {
@@ -121,26 +122,45 @@ return function ($page, $site) {
                 ? $file->resize(null, 1080)->url()
                 : $file->resize(1080, null)->url();
 
+            // Apply rotation if requested
+            $class = 'class="ad';
+            if ($rotate = get('rotate')) {
+                $class .= ' rotate-' . (int)$rotate;
+            }
+            $class .= '"';
+
             $link = $file->link()->isNotEmpty()
                 ? ' href="' . $file->link()->url() . '"' . 'target="_blank"'
                 : '';
 
-            $slides[] = "<a{$link} {$class}{$url})\"></a>";
+            $slides[] = "<div {$flickity}><a{$link} {$class} {$bgimage}{$url})\"></a></div>";
         }
         // Videos
         elseif($file->type() === 'video') {
+            
+            $rotateClass = '';
+            if ($rotate = get('rotate')) {
+                $rotateClass = ' rotate-' . (int)$rotate;
+            }
+
             $slides[] = sprintf(
-                '<video autoplay muted loop class="carousel-cell"><source src="%s"></video>',
+                '<div class="carousel-cell"><video autoplay muted loop class="%s"><source src="%s"></video></div>',
+                $rotateClass,
                 $file->url()
             );
         }
     }
 
     foreach ($webslides as $webslide){
-        $string = '<iframe class="carousel-cell" src="';
+        $rotateClass = '';
+        if ($rotate = get('rotate')) {
+            $rotateClass = ' rotate-' . (int)$rotate;
+        }
+
+        $string  = '<div class="carousel-cell"><iframe class="' . $rotateClass . '" src="';
         $string .= $webslide->url();
-        $string .= '" scrolling="no"></iframe>';
-        array_push($slides, $string);
+        $string .= '" scrolling="no"></iframe></div>';
+        $slides[] = $string;
     }    
 
     // if the slides array is empty, throws error slide

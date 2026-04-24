@@ -16,6 +16,12 @@ video{
     object-fit:cover;
 }
 
+iframe{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
 .main-carousel {
     position: absolute;
     top: 0;
@@ -32,17 +38,37 @@ video{
     height: 100%;
     background-size: cover;
 }
-.rotate-90 .carousel-cell {
-    transform: rotate(90deg);
-    transform-origin: center center;
+
+.ad {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
 }
 
-.rotate-180 .carousel-cell {
+.rotate-90 {
+    transform: translate(420px, -420px) rotate(90deg);
+    transform-origin: center 
+
+}
+
+.rotate-180 {
     transform: rotate(180deg);
-    transform-origin: center center;
 }
 
-.rotate-270 .carousel-cell {
-    transform: rotate(270deg);
-    transform-origin: center center;
+.rotate-270 {
+    transform: translate(-540px, 540px) rotate(270deg);
+    transform-origin: top 
+}
+
+video.rotate-90,
+iframe.rotate-90,
+video.rotate-270,
+iframe.rotate-270,
+.ad.rotate-90,
+.ad.rotate-270  {
+    width: 1080px;
+    height: 1920px;
+    object-fit: cover;
 }
