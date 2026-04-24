@@ -17,7 +17,7 @@
         <?php endif ?>
     <?php endslot() ?>
     <?php slot() ?>
-        <div class="main-carousel" data-flickity='{ "autoPlay": <?= $delay ?>, "cellAlign": "left", "imagesLoaded": true, "pageDots": false, "pauseAutoPlayOnHover": false, "prevNextButtons": false, "wrapAround": true}'>
+        <div class="main-carousel <?= $rotate ? ' rotate-' . $rotate : '' ?>" data-flickity='{ "autoPlay": <?= $delay ?>, "cellAlign": "left", "imagesLoaded": true, "pageDots": false, "pauseAutoPlayOnHover": false, "prevNextButtons": false, "wrapAround": true}'>
             <?= implode("\n", $slides) ?>
         </div>
     <?php endslot() ?>

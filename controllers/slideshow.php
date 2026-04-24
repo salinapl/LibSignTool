@@ -5,6 +5,9 @@ return function ($page, $site) {
     // determine orientation by looking at the URL
     $orientation = get('orientation');
 
+    // Check if a rotation of the slides is requested.
+    $rotate = get('rotate');
+
     // Grab the current time and check for an active event
     $now = new DateTime();
 
@@ -151,7 +154,8 @@ return function ($page, $site) {
     // Expose slides and delay time to template
     return [
         'slides'    => $slides,
-        'delay'     => $delay
+        'delay'     => $delay,
+        'rotate'    => $rotate
     ];
 };
 

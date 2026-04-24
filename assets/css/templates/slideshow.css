@@ -32,3 +32,17 @@ video{
     height: 100%;
     background-size: cover;
 }
+.rotate-90 .carousel-cell {
+    transform: rotate(90deg);
+    transform-origin: center center;
+}
+
+.rotate-180 .carousel-cell {
+    transform: rotate(180deg);
+    transform-origin: center center;
+}
+
+.rotate-270 .carousel-cell {
+    transform: rotate(270deg);
+    transform-origin: center center;
+}
