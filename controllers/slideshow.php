@@ -113,54 +113,60 @@ return function ($page, $site) {
     // Creates an empty array then assembles the slides into strings
     // then assembles the html and outputs the result into the array.
     $slides = array();
-    $flickity = 'class="carousel-cell"';
+    //Build rotate class
+    $rotate = get('rotate') ? (int)get('rotate') : 0;
+    $rotateClass = '';
+    if ($rotate > 0) {
+        $rotateClass = $orientation . '-' . $rotate;
+    }
     $bgimage = 'style="background-image:url(';
     foreach($gallery as $file) {
+    
         // Images
         if($file->type() === 'image') {
             $url = $file->orientation() === 'portrait'
                 ? $file->resize(null, 1080)->url()
                 : $file->resize(1080, null)->url();
 
-            // Apply rotation if requested
-            $class = 'class="ad';
-            if ($rotate = get('rotate')) {
-                $class .= ' rotate-' . (int)$rotate;
+            // Link logic
+            $linkStart = '';
+            $linkEnd   = '';
+            if ($file->link()->isNotEmpty()) {
+                $href = $file->link()->url();
+                $linkStart = '<a href="' . $href . '" target="_blank">';
+                $linkEnd   = '</a>';
             }
-            $class .= '"';
 
-            $link = $file->link()->isNotEmpty()
-                ? ' href="' . $file->link()->url() . '"' . 'target="_blank"'
-                : '';
-
-            $slides[] = "<div {$flickity}><a{$link} {$class} {$bgimage}{$url})\"></a></div>";
+            // Output structure:
+            // <div class="carousel-cell">
+            //     <a><img class="image-inner landscape-90" src="..."></a>
+            // </div>
+            $slides[] =
+                '<div class="carousel-cell">' .
+                    $linkStart .
+                        '<img class="image-inner ' . $rotateClass . '" src="' . $url . '">' .
+                    $linkEnd .
+                '</div>';
         }
         // Videos
         elseif($file->type() === 'video') {
-            
-            $rotateClass = '';
-            if ($rotate = get('rotate')) {
-                $rotateClass = ' rotate-' . (int)$rotate;
-            }
 
-            $slides[] = sprintf(
-                '<div class="carousel-cell"><video autoplay muted loop class="%s"><source src="%s"></video></div>',
-                $rotateClass,
-                $file->url()
-            );
+            $slides[] =
+                '<div class="carousel-cell">' .
+                    '<video class="video-inner ' . $rotateClass . '" autoplay muted loop>' .
+                        '<source src="' . $file->url() . '">' .
+                    '</video>' .
+                '</div>';
+
         }
     }
 
     foreach ($webslides as $webslide){
-        $rotateClass = '';
-        if ($rotate = get('rotate')) {
-            $rotateClass = ' rotate-' . (int)$rotate;
-        }
-
-        $string  = '<div class="carousel-cell"><iframe class="' . $rotateClass . '" src="';
-        $string .= $webslide->url();
-        $string .= '" scrolling="no"></iframe></div>';
-        $slides[] = $string;
+       
+        $slides[] =
+        '<div class="carousel-cell">' .
+            '<iframe class="iframe-inner ' . $rotateClass . '" src="' . $webslide->url() . '"></iframe>' .
+        '</div>';
     }    
 
     // if the slides array is empty, throws error slide
