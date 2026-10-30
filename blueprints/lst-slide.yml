@@ -26,8 +26,9 @@ columns:
           tags:
             width: 1
             type: multiselect
-            options: query
-            query: site.tagsWithDays()
+            options:
+              type: query
+              query: site.tagsWithDays()
           orientation:
             label: Video Orientation
             type: select

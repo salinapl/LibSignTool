@@ -46,7 +46,8 @@ columns:
       slideshow:
         label: Slideshow
         type: select
-        options: query
-        query: page('slideshows').children.filterBy('intendedTemplate', 'lst-slideshow')
+        options: 
+          type: query
+          query: page('slideshows').children.filterBy('intendedTemplate', 'lst-slideshow')
         when: 
           sidebar: true
