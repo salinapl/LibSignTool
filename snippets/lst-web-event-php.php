@@ -1,6 +1,14 @@
+<?php
+// Add any room IDs you want to hide to this array
+$excludedRoomIds = 209; 
+?>
 <ul class="evlist">
     <?php foreach($arrayReady as $jsonData): ?>
         <?php
+            $roomData = is_array($jsonData['room']) ? $jsonData['room'] : [];
+            if (!empty(array_intersect(array_keys($roomData), $excludedRoomIds))) {
+                continue; // Skip this event and move to the next one
+            }
             $rawStartDt = $jsonData['start_date'];
             $startDate  = new DateTime($rawStartDt);
             $rawEndDt   = $jsonData['end_date'];
