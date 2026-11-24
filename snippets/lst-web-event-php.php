@@ -1,14 +1,11 @@
 <?php
 // Add any room IDs you want to hide to this array
-$excludedRoomIds = 209; 
+$excludedRoomIds = ['Technology Center - Makerspace']; 
 ?>
 <ul class="evlist">
     <?php foreach($arrayReady as $jsonData): ?>
         <?php
-            $roomData = is_array($jsonData['room']) ? $jsonData['room'] : [];
-            if (!empty(array_intersect(array_keys($roomData), $excludedRoomIds))) {
-                continue; // Skip this event and move to the next one
-            }
+
             $rawStartDt = $jsonData['start_date'];
             $startDate  = new DateTime($rawStartDt);
             $rawEndDt   = $jsonData['end_date'];
@@ -18,6 +15,11 @@ $excludedRoomIds = 209;
             $room       = trim($jsonData['room']);
             $dateString = '';
             $timeString = '';
+
+            // Check if the room value matches anything in excluded list
+            if (in_array($room, $excludedRoomIds)) {
+                continue; // Skip this event and move to the next one
+            }
 
             // Check if event lasts longer than a day
             // Set date and time string if only 1 day event
