@@ -9,14 +9,14 @@ return function ($page, $site) {
     $rotate = get('rotate');
 
     // Grab the current time and check for an active event
-    $now = new DateTime();
+    $now = $now = time();
 
     // Set active event to null, then check the events table for an event
     // Set an event period to active event if it falls between the start/end
     $activeEvent = null;
     foreach ($page->events()->toStructure() as $event) {
-        $start  = new DateTime($event->start());
-        $end    = new DateTime($event->expire());
+        $start  = $event->start()->toDate();
+        $end    = $event->expire()->toDate();
 
         if($start <= $now && $now < $end) {
             $activeEvent = $event;
@@ -77,8 +77,8 @@ return function ($page, $site) {
                         }
                     // Filters the images to only show ones that appear between
                     // the campaigns start and end date
-                    $slidestart = new DateTime($file->start());
-                    $slideend = new DateTime($file->expire());
+                    $slidestart = $file->start()->toDate();
+                    $slideend = $file->expire()->toDate();
                     if(!($slideend > $now && $slidestart <= $now)) {
                         return false;
                     }
@@ -105,8 +105,8 @@ return function ($page, $site) {
                     ->filterBy('template', '*', '/^lst-web/')
                     ->filterBy('tags', 'in', $filterTags, ',')
                     ->filter(function($webslide) use($now){
-                        $webstart = new DateTime($webslide->start());
-                        $webend = new DateTime($webslide->expire());
+                        $webstart = $webslide->start()->toDate();
+                        $webend = $webslide->expire()->toDate();
                         return $webend > $now && $webstart <= $now;
     });
 
