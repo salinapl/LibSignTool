@@ -83,6 +83,8 @@ h1 {
     display: block;
     width:100%;
     color: var(--color-06);
+    -webkit-text-stroke: .25rem var(--color-04);
+    paint-order: stroke fill;
     border-radius: .5rem;
     background: var(--color-01);
     padding: 1.5rem;
