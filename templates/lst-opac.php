@@ -23,7 +23,7 @@
             </div>
             <?php if($page->sidebar()->bool()): ?>
                 <div class="main-carousel">
-                    <iframe class="carousel-cell" src="<?= $page->slideshow()->url() ?>" scrolling="no"></iframe>
+                    <iframe class="carousel-cell" src="<?= $page->slideshow()->toUrl() ?>" scrolling="no"></iframe>
                 </div>
             <?php endif ?>
         </div>
