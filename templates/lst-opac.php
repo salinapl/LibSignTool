@@ -10,7 +10,7 @@
 
                     <div class="logo">
                         <?php if($headerImage = $page->headerImage()->toFile()): ?>
-                            <img src="<?= $headerImage->url() ?>">
+                            <img src="<?= $headerImage->url() ?>" alt="<?= $page->headerAlt()->toString() ?>">
                         <?php endif ?>
                     </div>
                     <h1><?= $page->headline() ?></h1>

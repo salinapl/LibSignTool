@@ -37,6 +37,8 @@ columns:
         query: page.images
         multiple: false
         label: Header Image
+      headerAlt:
+        type: text
       sidebar:
         type: toggle
         text:
